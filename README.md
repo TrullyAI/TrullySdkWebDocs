@@ -463,6 +463,19 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
 />;
 ```
 
+#### Customize Logo CSS
+
+Here is the CSS used for the logo so you can customize it if you need
+
+```css
+.trully-logo {
+  position: relative;
+  z-index: 10;
+  top: 10px;
+  width: 110px;
+}
+```
+
 ### Change videos
 
 Videos are loaded using a video HTML tag, to change it you should pass the
@@ -493,6 +506,68 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
     },
   }}
 />;
+```
+
+#### Customize CSS
+
+Here is the CSS used for the videos so you can customize them if you need
+
+### docFront | docBack | docFail
+
+```css
+.trully-doc-reader-video-container {
+  width: 55%;
+  gap: 0;
+}
+
+.trully-doc-reader-video {
+  padding: 0;
+  position: relative;
+  width: 100%;
+  padding-top: 75%;
+}
+
+.trully-doc-reader-video video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+```
+
+### livenessVideo
+
+```css
+.trully-detection-intro-video-container {
+  width: 55%;
+  gap: 0;
+}
+
+/*
+    livenessVideo config for retry page
+  */
+.trully-detection-retry-video-container {
+  width: 65%;
+  gap: 0;
+}
+
+.trully-detection-video {
+  padding: 0;
+  position: relative;
+  width: 260px;
+  padding-top: 75%;
+}
+
+.trully-detection-video video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 ```
 
 ### Change texts
@@ -577,9 +652,9 @@ other page. Here are the default values you'll be changing
 
 ##### location
 
-| Key     | Description                                                                                                                                            |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `title` | String. Completa este formulario con tu información personal veraz. Estamos comprometidos con la confidencialidad y seguridad de tus datos personales. |
+| Key     | Description               |
+| ------- | ------------------------- |
+| `title` | String. Locación obtenida |
 
 ##### liveness
 
@@ -587,10 +662,10 @@ This key represents the process of getting user selfie. This process has
 different pages. Those pages are represented by keys of the liveness object.
 Here is the structure of the liveness process.
 
-| Key        | Description                                                                         |
-| ---------- | ----------------------------------------------------------------------------------- |
-| `appIntro` | This page will show the user how to take the picture to the front of the credential |
-| `retry`    | This page will show the user how to take the picture to the back of the credential  |
+| Key        | Description                                                                                             |
+| ---------- | ------------------------------------------------------------------------------------------------------- |
+| `appIntro` | This page will prompt the user to ready itself to take a selfie. Also, shows a photosensitivity warning |
+| `retry`    | This page will appear wen the selfie process went wrong and it's necessary to do it again               |
 
 Each of the keys has the same logic you would use to modify the text of any
 other page. Here are the default values you'll be changing
@@ -746,6 +821,7 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
         },
         // Colors should be expressed in hexadecimal
         primaryTextColor: "YOUR_HEX_COLOR",
+        secondaryTextColor: "YOUR_HEX_COLOR",
       },
     },
   }}
@@ -1024,8 +1100,8 @@ can specify the actions to be taken when the server request is successful
 | `tag`                          | String. The tag from the process. Automatically generated when you didn't pass one through configuration prop                                                    |
 | `user_id`                      | String. The user_id you passed in configuration                                                                                                                  |
 | `raw_data`                     | Object containing the unprocessed data from the Decision Maker. You can learn more about [here](https://docs.trully.ai/reference/post_v1-decision-maker-predict) |
-| `ip`                           | String. The ip of the device obtained during the process                                                                                                         |
-| `location`                     | Object. Keys lat/lng. The coordinates of the device obtained during the process                                                                                  |
+| `ip`                           | String. The ip of the device obtained during the process. Empty string if we couldn't get the ip                                                                 |
+| `location`                     | Object. Keys lat/lng. The coordinates of the device obtained during the process. Keys lat/lng will be empty string if we couldn't get the location               |
 | `label`                        | String. The label generate by the Decision Maker for the user who has completed the process                                                                      |
 |                                | No Threat - low risk user. Review - medium risk user. Potential Threat - high risk                                                                               |
 | `reason`                       | Array. Contains the reasons behind the decision                                                                                                                  |
@@ -1140,7 +1216,7 @@ or the
 to see how the SDK works
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 const handleData = (response) => {
   console.log("Response - tag", response.tag);
@@ -1154,10 +1230,10 @@ const handleData = (response) => {
     "Response - document_image_complete",
     response.document_image_complete
   );
-  console.log("Response - document_image_back", response.document_image_back);
+  console.log("Response - document_back", response.document_back);
   console.log(
-    "Response - document_image_back_complete",
-    response.document_image_back_complete
+    "Response - document_back_complete",
+    response.document_back_complete
   );
 };
 
@@ -1176,80 +1252,127 @@ const handleError = (error) => {
     handleData,
     handleError,
     showLogo: true,
-    showExit: true,
     images: {
-      logo: "YOUR_LOGO_PATH",
-      lightIcon: "YOUR__ICON_PATH",
-      crossIcon: "YOUR__ICON_PATH",
-      iconCheck: "YOUR__ICON_PATH",
-      videoFallback: "YOUR_IMAGE_PATH",
+      logo: "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/logo-trully.svg",
+      docIcon:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg",
+      docOkIcon:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_INEOK+color.svg",
+      brightnessIcon:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_INEOK+color.svg",
+      docFocusedIcon:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_Ine+enfoque.svg",
+      docUnfocusedIcon:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_blur+color.svg",
+      permissions:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ModalWeb.svg",
+      cameraDeniedImage:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/cameraDenied-1.svg",
+      timeoutIcon:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/no_element_timeout.svg",
+      errorIcon:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/face_timeout.svg",
+      iconCheck:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon-check.svg",
+      lightIcon:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/luzIcon.svg",
+      crossIcon:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/retirarElementosIcon.svg",
+      videoFallback:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/livenessFallback.svg",
+      rotate:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/rotate.svg",
+      datosIcon:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Datos-1.svg",
+      IDIcon:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg",
+      VideoIcon:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Video-1.svg",
+      IDImage:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID2-1.svg",
+      locationDeniedImage:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/pin-1.svg",
+      poorWifiIcon:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_coneccio%CC%81n.webp",
     },
     videos: {
-      docFront: "YOUR_VIDEO_PATH",
-      docBack: "YOUR_VIDEO_PATH",
-      docFail: "YOUR_VIDEO_PATH",
+      livenessVideo:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/LivenessVideo.webm",
+      docFront:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneFront.webm",
+      docBack:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneBack.webm",
+      docFail:
+        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneFail.webm",
     },
     texts: {
       appIntro: {
-        title: "YOUR_TEXT",
-        subtitle: "YOUR_TEXT",
-        btnText: "YOUR_TEXT",
+        title: "Vamos a verificar tu identidad",
+        subtitle: "Para este proceso necesitas:",
+        btnText: "Continuar",
       },
+      // Add only if you have pagesToInclude: ["form"]
       form: {
-        subtitle: "YOUR_TEXT",
-        btnText: "YOUR_TEXT",
+        subtitle:
+          "Completa este formulario con tu información personal veraz. Estamos comprometidos con la confidencialidad y seguridad de tus datos personales.",
+        btnText: "Continuar",
       },
+      // Add only if you have pagesToInclude: ["personal_info"]
       personalInfo: {
-        subtitle: "YOUR_TEXT",
-        btnText: "YOUR_TEXT",
+        subtitle:
+          "Escribe los datos como aparecen en tu identificación oficial",
+        btnText: "Continuar",
       },
       documentReader: {
         docFrontIntro: {
-          title: "YOUR_TEXT",
-          btnText: "YOUR_TEXT",
+          title: "Toma una foto de la parte frontal de tu INE",
+          btnText: "Tomar fotografía",
         },
         cameraPermissions: {
-          title: "YOUR_TEXT",
-          subtitle: "YOUR_TEXT",
-          btnText: "YOUR_TEXT",
+          title: "Para continuar permite el acceso a la cámara",
+          subtitle:
+            "Cuando se le solicite, selecciona “Permitir” para habilitar el acceso a la cámara.",
+          btnText: "Activar cámara",
         },
         docBackIntro: {
-          title: "YOUR_TEXT",
-          btnText: "YOUR_TEXT",
+          title: "Toma una foto de la parte trasera de tu INE",
+          btnText: "Tomar fotografía",
         },
       },
       location: {
-        title: "YOUR_TEXT",
+        title: "Locación obtenida",
       },
       liveness: {
         appIntro: {
-          title: "YOUR_TEXT",
-          warning: "YOUR_TEXT",
-          btnText: "YOUR_TEXT",
+          title: "Ahora toma un video selfie",
+          warning:
+            "La siguiente verificación contiene luces intermitentes que podrían afectar a personas con fotosensibilidad",
+          btnText: "Tomar video",
         },
         retry: {
-          title: "YOUR_TEXT",
-          btnText: "YOUR_TEXT",
+          title: "Inténtalo de nuevo",
+          btnText: "Reintentar",
         },
       },
       exit: {
-        title: "YOUR_TEXT",
-        subtitle: "YOUR_TEXT",
+        title: "¡Gracias!",
+        subtitle: "Tu información fue recibida con éxito",
       },
     },
     styles: {
       textsStyles: {
-        fontFamily: "YOUR_FONT",
+        fontFamily: "'DM Sans', sans-serif",
         // Colors should be expressed in hexadecimal
-        primaryTextColor: "YOUR_HEX_COLOR",
+        primaryTextColor: "#181c21", //titles
+        secondaryTextColor: "#181c21", //texts
       },
       colors: {
-        primary: "YOUR_HEX_COLOR",
-        secondary: "YOUR_HEX_COLOR",
-        disabled: "YOUR_HEX_COLOR",
-        white: "YOUR_HEX_COLOR",
-        background: "YOUR_HEX_COLOR",
-        icons: "YOUR_HEX_COLOR",
+        primary: "#475fff",
+        secondary: "#001063",
+        disabled: "#E5EBF3",
+        white: "#FFFFFF",
+        background: "#FFFFFF",
+        icons: undefined,
       },
     },
   }}
