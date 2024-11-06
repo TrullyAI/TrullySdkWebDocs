@@ -153,13 +153,14 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
 
 ## Combine with other Decision Maker analysis
 
-TrueDeepfakeDetection helps you to get the selfie of a candidate so our Decision
-Maker can analyze it. But our Decision Maker could be used to analyze different
-data points and you may want to combine every Decision Maker response you get
-for every data point (learn more about Decision Maker on the
+TrullySdkWeb helps you to get a candidate data (by default you'll be collecting
+document image, location and selfie) so our Decision Maker can analyze it. But
+our Decision Maker could be used to analyze different data points and you may
+want to combine every Decision Maker response you get for every data point
+(learn more about Decision Maker on the
 [API Docs](https://trully.readme.io/reference/decisionmakerpredict)). You can
-join the response you get from the TrueDeepfakeDetection with others Decision
-Maker responses passing the request_id in the configuration object.
+join the response you get from the TrullySdkWeb with others Decision Maker
+responses passing the request_id in the configuration object.
 
 | Key          | Description                                                          |
 | ------------ | -------------------------------------------------------------------- |
