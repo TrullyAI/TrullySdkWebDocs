@@ -91,14 +91,9 @@ five required keys: "isDev", "apiKey", "user_id", "handleData" and
 | `handleError`       | Should be a callback function receiving a parameter. This parameter will hold an error object.                                     |
 | `handleTrack`       | (optional) Callback. Catch the step changing of the operation.                                                                     |
 | `handleTrackDetail` | (optional) Callback. Catch the user's interaction during the operation.                                                            |
-| `forceLocation*`    | (optional) Boolean. If true, the process won't finished unless the candidate share their location. Default true                    |
-| `userIDIsCURP**`    | (optional) Boolean. If you're using the CURP as user_id and want to send it to the Decision Maker mark this as true. Default false |
+| `userIDIsCURP*`     | (optional) Boolean. If you're using the CURP as user_id and want to send it to the Decision Maker mark this as true. Default false |
 
-\*If the candidate chooses to use a mobile device, the access to the location
-will depend on the Browser App permissions. iOS devices block location access by
-default so the user will need to manually set the permission. <br /> ⚠️ If you
-choose not to force the location, we won't be able to guarantee location related
-information <br /> \*\*curp input won't be showing in form page
+\*curp input won't be showing in form page
 
 #### Example
 
@@ -405,29 +400,28 @@ Images are loaded using an image HTML tag, so to change it you should pass the
 corresponding path to the image. Every one of these keys are optional. These are
 the default values
 
-| Key                   | Description                                                                            |
-| --------------------- | -------------------------------------------------------------------------------------- |
-| `logo`                | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/logo-trully.svg           |
-| `docIcon`             | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg                  |
-| `docOkIcon`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_INEOK+color.svg      |
-| `brightnessIcon`      | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_Reflejo+color.svg    |
-| `docFocusedIcon`      | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_Ine+enfoque.svg      |
-| `docUnfocusedIcon`    | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_blur+color.svg       |
-| `permissions`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ModalWeb.svg              |
-| `cameraDeniedImage`   | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/cameraDenied-1.svg        |
-| `timeoutIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/no_element_timeout.svg    |
-| `errorIcon`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/face_timeout.svg          |
-| `iconCheck`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon-check.svg            |
-| `lightIcon`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/luzIcon.svg               |
-| `crossIcon`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/retirarElementosIcon.svg  |
-| `videoFallback`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/livenessFallback.svg      |
-| `rotate`              | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/rotate.svg                |
-| `datosIcon`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Datos-1.svg               |
-| `IDIcon`              | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg                  |
-| `VideoIcon`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Video-1.svg               |
-| `IDImage`             | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID2-1.svg                 |
-| `locationDeniedImage` | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/pin-1.svg                 |
-| `poorWifiIcon`        | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_coneccio%CC%81n.webp |
+| Key                 | Description                                                                            |
+| ------------------- | -------------------------------------------------------------------------------------- |
+| `logo`              | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/logo-trully.svg           |
+| `docIcon`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg                  |
+| `docOkIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_INEOK+color.svg      |
+| `brightnessIcon`    | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_Reflejo+color.svg    |
+| `docFocusedIcon`    | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_Ine+enfoque.svg      |
+| `docUnfocusedIcon`  | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_blur+color.svg       |
+| `permissions`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ModalWeb.svg              |
+| `cameraDeniedImage` | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/cameraDenied-1.svg        |
+| `timeoutIcon`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/no_element_timeout.svg    |
+| `errorIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/face_timeout.svg          |
+| `iconCheck`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon-check.svg            |
+| `lightIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/luzIcon.svg               |
+| `crossIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/retirarElementosIcon.svg  |
+| `videoFallback`     | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/livenessFallback.svg      |
+| `rotate`            | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/rotate.svg                |
+| `datosIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Datos-1.svg               |
+| `IDIcon`            | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg                  |
+| `VideoIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Video-1.svg               |
+| `IDImage`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID2-1.svg                 |
+| `poorWifiIcon`      | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_coneccio%CC%81n.webp |
 
 #### Example
 
@@ -457,7 +451,6 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
         IDIcon: "YOUR_IMAGE_PATH",
         VideoIcon: "YOUR_IMAGE_PATH",
         IDImage: "YOUR_IMAGE_PATH",
-        locationDeniedImage: "YOUR_IMAGE_PATH",
         poorWifiIcon: "YOUR_IMAGE_PATH",
     },
   }}
@@ -584,7 +577,6 @@ be used accordingly.
 | `form`           | This page will appear if you added "form" to pagesToInclude key. Will show the inputs added using inputs key                                                  |
 | `personalInfo`   | This page will appear if you added "personal_info" to pagesToInclude key. Will show a form asking for complete name, date of birth, place of birth and gender |
 | `documentReader` | This key represents the process of getting document images                                                                                                    |
-| `location`       | This page will show the user the moment we're taking their location                                                                                           |
 | `liveness`       | This key represents the process of getting user selfie                                                                                                        |
 | `exit`           | This page will thank the user and let them know we got the data                                                                                               |
 
@@ -650,12 +642,6 @@ other page. Here are the default values you'll be changing
 | --------- | --------------------------------------------------- |
 | `title`   | String. Toma una foto de la parte trasera de tu INE |
 | `btnText` | String. Tomar fotografía                            |
-
-##### location
-
-| Key     | Description               |
-| ------- | ------------------------- |
-| `title` | String. Locación obtenida |
 
 ##### liveness
 
@@ -729,9 +715,6 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
           title: "YOUR_TEXT",
           btnText: "YOUR_TEXT",
         },
-      },
-      location: {
-        title: "YOUR_TEXT",
       },
       liveness: {
         appIntro: {
@@ -1291,8 +1274,6 @@ const handleError = (error) => {
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Video-1.svg",
       IDImage:
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID2-1.svg",
-      locationDeniedImage:
-        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/pin-1.svg",
       poorWifiIcon:
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_coneccio%CC%81n.webp",
     },
@@ -1339,9 +1320,6 @@ const handleError = (error) => {
           title: "Toma una foto de la parte trasera de tu INE",
           btnText: "Tomar fotografía",
         },
-      },
-      location: {
-        title: "Locación obtenida",
       },
       liveness: {
         appIntro: {
@@ -1403,19 +1381,3 @@ This may happen for three reasons:
    the Camera permissions denied. It's important to let the users know they'll
    have to change the App permissions to allow the Browser Camera API to ask for
    permissions
-
-### Location permission was accepted, but a message asking to accept it appears
-
-This may happen for two reasons:
-
-1. The component needs to work under the HTTPS protocol because the Browser
-   Geolocation API will revoke access to the device if the connection is not
-   secure. Make sure that you're working with HTTPS.
-2. Some browsers will revoke access to the device while using auto-signed
-   certificates. If you're working in development, you're probably creating an
-   auto-signed certificate to force the HTTPS protocol. If that's the case, open
-   your app in an incognito tab.
-3. The Browser Geolocation API will automatically revoke permissions if the App
-   has the Geolocation permissions denied. It's important to let the users know
-   they'll have to change the App permissions to allow the Browser Geolocation
-   API to ask for permissions
