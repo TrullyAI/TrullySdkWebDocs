@@ -672,6 +672,26 @@ other page. Here are the default values you'll be changing
 | `title`   | String. Inténtalo de nuevo |
 | `btnText` | String. Reintentar         |
 
+##### poa
+
+This key represents the process of getting user Proof of Address. This process
+has different pages. Those pages are represented by keys of the poa object. Here
+is the structure of the poa process.
+
+| Key        | Description                                                                |
+| ---------- | -------------------------------------------------------------------------- |
+| `appIntro` | This page will prompt the user to ready itself to take a the receipt photo |
+
+Each of the keys has the same logic you would use to modify the text of any
+other page. Here are the default values you'll be changing
+
+###### appIntro
+
+| Key       | Description                                                |
+| --------- | ---------------------------------------------------------- |
+| `title`   | String. Toma una fotografía de un comprobante de domicilio |
+| `btnText` | String. Tomar fotografía                                   |
+
 ##### Exit
 
 | Key        | Description                                   |
@@ -723,6 +743,12 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
           btnText: "YOUR_TEXT",
         },
         retry: {
+          title: "YOUR_TEXT",
+          btnText: "YOUR_TEXT",
+        },
+      },
+      poa: {
+        appIntro: {
           title: "YOUR_TEXT",
           btnText: "YOUR_TEXT",
         },
@@ -1331,6 +1357,13 @@ const handleError = (error) => {
         retry: {
           title: "Inténtalo de nuevo",
           btnText: "Reintentar",
+        },
+      },
+      // Add only if you have pagesToInclude: ["poa"]
+      poa: {
+        appIntro: {
+          title: "Toma una fotografía de un comprobante de domicilio",
+          btnText: "Tomar fotografía",
         },
       },
       exit: {
