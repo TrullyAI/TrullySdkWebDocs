@@ -413,15 +413,17 @@ the default values
 | `timeoutIcon`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/no_element_timeout.svg    |
 | `errorIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/face_timeout.svg          |
 | `iconCheck`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon-check.svg            |
-| `lightIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/luzIcon.svg               |
-| `crossIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/retirarElementosIcon.svg  |
-| `videoFallback`     | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/livenessFallback.svg      |
-| `rotate`            | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/rotate.svg                |
 | `datosIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Datos-1.svg               |
 | `IDIcon`            | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg                  |
 | `VideoIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Video-1.svg               |
 | `IDImage`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID2-1.svg                 |
+| `lightIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/luzIcon.svg               |
+| `crossIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/retirarElementosIcon.svg  |
+| `videoFallback`     | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/livenessFallback.svg      |
+| `rotate`            | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/rotate.svg                |
 | `poorWifiIcon`      | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_coneccio%CC%81n.webp |
+| `poaReceipt`        | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/Recibo.svg      |
+| `poaDoc`            | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/poaDoc.svg      |
 
 #### Example
 
@@ -452,6 +454,8 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
         VideoIcon: "YOUR_IMAGE_PATH",
         IDImage: "YOUR_IMAGE_PATH",
         poorWifiIcon: "YOUR_IMAGE_PATH",
+        poaReceipt: "YOUR_IMAGE_PATH",
+        poaDoc: "YOUR_IMAGE_PATH",
     },
   }}
 />;
@@ -477,12 +481,13 @@ corresponding path to the video. We recommend to change the videoFallback image
 if you're going to change livenessVideo. videoFallback is use as livenessVideo
 poster. Every one of these keys are optional. These are the default values.
 
-| Key             | Description                                                                     |
-| --------------- | ------------------------------------------------------------------------------- |
-| `livenessVideo` | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/LivenessVideo.webm |
-| `docFront`      | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneFront.webm      |
-| `docBack`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneBack.webm       |
-| `docFail`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneFail.webm       |
+| Key             | Description                                                                             |
+| --------------- | --------------------------------------------------------------------------------------- |
+| `livenessVideo` | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/LivenessVideo.webm         |
+| `docFront`      | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneFront.webm              |
+| `docBack`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneBack.webm               |
+| `docFail`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneFail.webm               |
+| `poaIntro`      | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/comprobante.webm |
 
 #### Example
 
@@ -497,6 +502,7 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
       docFront: "YOUR_VIDEO_PATH",
       docBack: "YOUR_VIDEO_PATH",
       docFail: "YOUR_VIDEO_PATH",
+      poaIntro: "YOUR_VIDEO_PATH",
     },
   }}
 />;
@@ -506,22 +512,24 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
 
 Here is the CSS used for the videos so you can customize them if you need
 
-### docFront | docBack | docFail
-
 ```css
-.trully-doc-reader-video-container {
+.trully-video-container {
   width: 55%;
   gap: 0;
 }
 
-.trully-doc-reader-video {
+.trully-video-position {
   padding: 0;
   position: relative;
   width: 100%;
+  padding-top: 70%;
+}
+
+.true-deepfake-detection .trully-video-position {
   padding-top: 75%;
 }
 
-.trully-doc-reader-video video {
+.trully-video-position video {
   position: absolute;
   top: 0;
   left: 0;
@@ -531,30 +539,77 @@ Here is the CSS used for the videos so you can customize them if you need
 }
 ```
 
-### livenessVideo
+##### Change individual video
+
+The videos are inside individualize containers you can use to change the styles
+of an specific video.
+
+###### livenessVideo
 
 ```css
-.trully-detection-intro-video-container {
+.true-deepfake-detection .trully-video-container {
   width: 55%;
   gap: 0;
 }
 
-/*
-    livenessVideo config for retry page
-  */
-.trully-detection-retry-video-container {
-  width: 65%;
-  gap: 0;
-}
-
-.trully-detection-video {
+.true-deepfake-detection .trully-video-position {
   padding: 0;
   position: relative;
-  width: 260px;
+  width: 100%;
   padding-top: 75%;
 }
 
-.trully-detection-video video {
+.true-deepfake-detection .trully-video-position video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+```
+
+###### docFront | docBack | docFail
+
+```css
+.trully-document-reader .trully-video-container {
+  width: 55%;
+  gap: 0;
+}
+
+.trully-document-reader .trully-video-position {
+  padding: 0;
+  position: relative;
+  width: 100%;
+  padding-top: 70%;
+}
+
+.trully-document-reader .trully-video-position video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+```
+
+###### poaIntro
+
+```css
+.trully-poa .trully-video-container {
+  width: 55%;
+  gap: 0;
+}
+
+.trully-poa .trully-video-position {
+  padding: 0;
+  position: relative;
+  width: 100%;
+  padding-top: 70%;
+}
+
+.trully-poa .trully-video-position video {
   position: absolute;
   top: 0;
   left: 0;
@@ -1302,6 +1357,10 @@ const handleError = (error) => {
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID2-1.svg",
       poorWifiIcon:
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_coneccio%CC%81n.webp",
+      poaReceipt:
+        "https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/Recibo.svg",
+      poaDoc:
+        "https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/poaDoc.svg",
     },
     videos: {
       livenessVideo:
@@ -1312,6 +1371,8 @@ const handleError = (error) => {
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneBack.webm",
       docFail:
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneFail.webm",
+      poaIntro:
+        "https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/comprobante.webm",
     },
     texts: {
       appIntro: {
