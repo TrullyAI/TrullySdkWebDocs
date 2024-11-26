@@ -28,6 +28,9 @@ follow the steps in the [<b>Add it to Next.js</b>](#add-it-next) section
    4. [Change videos](#change-videos)
    5. [Change texts](#change-texts)
    6. [Change styles](#change-styles)
+      1. [Change texts styles](#textsStyles)
+      2. [Change colors styles](#colors)
+         1. [Change illustrations colors](#illustration_color)
 7. [Add it to Next.js](#add-it-next)
    1. [Next.js App Router System](#nextjs-app-router-system)
       1. [Add styles](#add-styles-1)
@@ -400,7 +403,6 @@ the default values
 | `docFocusedIcon`   | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_Ine+enfoque.svg      |
 | `docUnfocusedIcon` | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_blur+color.svg       |
 | `permissions`      | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ModalWeb.svg              |
-| `timeoutIcon`      | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/no_element_timeout.svg    |
 | `iconCheck`        | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/nuevo_Check.svg |
 | `datosIcon`        | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Datos-1.svg               |
 | `IDIcon`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg                  |
@@ -429,7 +431,6 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
         docFocusedIcon: "YOUR_IMAGE_PATH",
         docUnfocusedIcon: "YOUR_IMAGE_PATH",
         permissions: "YOUR_IMAGE_PATH",
-        timeoutIcon: "YOUR_IMAGE_PATH",
         iconCheck: "YOUR_IMAGE_PATH",
         lightIcon: "YOUR_IMAGE_PATH",
         crossIcon: "YOUR_IMAGE_PATH",
@@ -885,14 +886,15 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
 Colors will allow you change the different colors to match your brand design.
 Every one of these keys are optional. These are the default values.
 
-| Key          | Description |
-| ------------ | ----------- |
-| `primary`    | #475fff     |
-| `secondary`  | #001063     |
-| `disabled`   | #E5EBF3     |
-| `white`      | #FFFFFF     |
-| `background` | #FFFFFF     |
-| `icons`      | None        |
+| Key                  | Description          |
+| -------------------- | -------------------- |
+| `primary`            | #475fff              |
+| `secondary`          | #001063              |
+| `disabled`           | #E5EBF3              |
+| `white`              | #FFFFFF              |
+| `background`         | #FFFFFF              |
+| `icons`              | None                 |
+| `illustration_color` | ILLUSTRATION.DEFAULT |
 
 ##### Example
 
@@ -910,11 +912,65 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
         white: "YOUR_HEX_COLOR",
         background: "YOUR_HEX_COLOR",
         icons: "YOUR_HEX_COLOR",
+        illustration_color: ILLUSTRATION.DEFAULT | ILLUSTRATION.MONO | ILLUSTRATION.ELECTRIC | ILLUSTRATION.3D
       },
     },
   }}
 />;
 ```
+
+##### illustration_color
+
+For the errors we use illustrations that could not be changed but you could
+choose the color style for them. There are four color styles and you can choose
+it using the ILLUSTRATION enum. Here are the values
+
+| ILLUSTRATION |
+| ------------ |
+| `DEFAULT`    |
+| `MONO`       |
+| `ELECTRIC`   |
+| `3D`         |
+
+###### DEFAULT
+
+| Key                        | Description                                                                                                   |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `Timeout Cliente`          | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/default/Advertencia_original.svg    |
+| `Error API Key`            | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/default/ApiKeyError_original.svg    |
+| `Server Error`             | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/default/Error_original.svg          |
+| `Low Internet Speed`       | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/default/RedBloqueada_original.svg   |
+| `Camera Permission Denied` | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/default/VideoBloqueado_original.svg |
+
+###### MONO
+
+| Key                        | Description                                                                                                     |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `Timeout Cliente`          | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/mono/Advertencia_monocromatico.svg    |
+| `Error API Key`            | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/mono/ApiKeyError_monocromatico.svg    |
+| `Server Error`             | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/mono/Error_monocromatico.svg          |
+| `Low Internet Speed`       | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/mono/RedBloqueada_monocromatico.svg   |
+| `Camera Permission Denied` | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/mono/VideoBloqueado_monocromatico.svg |
+
+###### ELECTRIC
+
+| Key                        | Description                                                                                                     |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `Timeout Cliente`          | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/electric/Advertencia_electrico.svg    |
+| `Error API Key`            | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/electric/ApiKeyError_electrico.svg    |
+| `Server Error`             | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/electric/Error_electrico.svg          |
+| `Low Internet Speed`       | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/electric/RedBloqueada_electrico.svg   |
+| `Camera Permission Denied` | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/electric/VideoBloqueado_electrico.svg |
+
+###### 3D
+
+| Key                        | Description                                                                                        |
+| -------------------------- | -------------------------------------------------------------------------------------------------- |
+| `Timeout Cliente`          | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/3d/Advertencia_3d.svg    |
+| `Error API Key`            | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/3d/ApiKeyError_3d.svg    |
+| `Server Error`             | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/3d/Error_3d.svg          |
+| `Low Internet Speed`       | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/3d/RedBloqueada_3d.svg   |
+| `Camera Permission Denied` | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/3d/VideoBloqueado_3d.svg |
 
 ## <a id="add-it-next"></a>Add it to Next.js
 
@@ -1163,6 +1219,7 @@ can specify the actions to be taken when the server request is successful
 | `document_image_complete`      | Base64 string. Document front uncropped                                                                                                                          |
 | `document_image_back`          | Base64 string. Document back cropped                                                                                                                             |
 | `document_image_back_complete` | Base64 string. Document back uncropped                                                                                                                           |
+| `poa_image`                    | Base64 string. Proof Of Address receipt. Only if you have pagesToInclude: ["poa"]                                                                                |
 
 #### Receiving data with webhook
 
@@ -1268,8 +1325,6 @@ const handleError = (error) => {
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_blur+color.svg",
       permissions:
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ModalWeb.svg",
-      timeoutIcon:
-        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/no_element_timeout.svg",
       iconCheck:
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon-check.svg",
       lightIcon:
@@ -1377,6 +1432,7 @@ const handleError = (error) => {
         white: "#FFFFFF",
         background: "#FFFFFF",
         icons: undefined,
+        illustration_color: ILLUSTRATION.DEFAULT,
       },
     },
   }}
