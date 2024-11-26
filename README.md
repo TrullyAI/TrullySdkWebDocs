@@ -28,6 +28,9 @@ follow the steps in the [<b>Add it to Next.js</b>](#add-it-next) section
    4. [Change videos](#change-videos)
    5. [Change texts](#change-texts)
    6. [Change styles](#change-styles)
+      1. [Change texts styles](#textsStyles)
+      2. [Change colors styles](#colors)
+         1. [Change illustrations colors](#illustration_color)
 7. [Add it to Next.js](#add-it-next)
    1. [Next.js App Router System](#nextjs-app-router-system)
       1. [Add styles](#add-styles-1)
@@ -239,22 +242,15 @@ needed for the Decision Maker.
 
 #### Actions Table
 
-| Name                                     | Description                                                            |
-| ---------------------------------------- | ---------------------------------------------------------------------- |
-| `LEGAL_DOCUMENTATION_ACCEPTED`           | User accept Privacy Policy and Terms and Conditions.                   |
-| `LEGAL_DOCUMENTATION_DECLINED`           | User declined Privacy Policy and Terms and Conditions.                 |
-| `LOAD_NEXT_PAGE`                         | Operation start new page.                                              |
-| `NO_CAMERA_AVAILABLE`                    | The operation couldn't start camera.                                   |
-| `FRONT_IMAGE_OBTAINED`                   | Operation has document front.                                          |
-| `BACK_IMAGE_OBTAINED`                    | Operation has document back.                                           |
-| `DOCUMENT_ANALYSIS_RETRY`                | Operation needs to re start document analysis.                         |
-| `DOCUMENT_ANALYSIS_COMPLETE`             | Operation has analyzed front and back image.                           |
-| `LOCATION_OBTAINED`                      | Operation has user's location.                                         |
-| `LOCATION_SKIPPED`                       | Operation has continued without user's location.                       |
-| `LIVENESS_RECOGNITION_PROCESS_STARTED`   | Operation has start liveness analysis.                                 |
-| `LIVENESS_RECOGNITION_PROCESS_COMPLETED` | Operation has analyzed liveness status.                                |
-| `DATA_SEND_TO_DECISION_MAKER`            | Operation has sended data collected to Decision Maker. Awaiting result |
-| `END_KYC_PROCESS`                        | Operation has Decision Maker result.                                   |
+| Name                                     | Description                                            |
+| ---------------------------------------- | ------------------------------------------------------ |
+| `LEGAL_DOCUMENTATION_ACCEPTED`           | User accept Privacy Policy and Terms and Conditions.   |
+| `LEGAL_DOCUMENTATION_DECLINED`           | User declined Privacy Policy and Terms and Conditions. |
+| `DOCUMENT_IMAGES_OBTAINED`               | Operation has analyzed front and back image.           |
+| `LOCATION_OBTAINED`                      | Operation has user's location.                         |
+| `LOCATION_SKIPPED`                       | Operation has continued without user's location.       |
+| `LIVENESS_RECOGNITION_PROCESS_COMPLETED` | Operation has analyzed liveness status.                |
+| `END_KYC_PROCESS`                        | Operation has Decision Maker result.                   |
 
 #### Example
 
@@ -276,43 +272,40 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
 This function will be called when the operation gets the Decision Maker result.
 Go to [<b>Data handling</b>](#results) section to get more information
 
-### onError
+### handleError
 
 This function will be called in case of an error during the operation. You'll
 receive the error object as is generated
 
 We recommend you save this error into a log file.
 
-| Key         | Description                                     |
-| ----------- | ----------------------------------------------- |
-| `process`   | Which part of the process trigger the function. |
-| `message`   | Error message                                   |
-| `userID`    | The userID you passed during initialization.    |
-| `timestamp` | UTC timezone. When the function was trigger.    |
-| `error`     | Object. Extra information about the error       |
-
-#### Process Table
-
-| Name                           | Description                                          |
-| ------------------------------ | ---------------------------------------------------- |
-| `SAVING_TRACK_STEP`            | HTTP error when saving track data.                   |
-| `OBTAINING_IP`                 | HTTP error when getting ip data.                     |
-| `INITIALIZING_DOCUMENT_READER` | Process error during document reader initialization. |
-| `READING_DOCUMENT`             | Process error analyzing document.                    |
-| `GETTING_LIVENESS`             | Process error analyzing liveness.                    |
-| `OBTAINING_DM_RESPONSE`        | HTTP error when getting Decision Maker response.     |
+| Key         | Description                                   |
+| ----------- | --------------------------------------------- |
+| `message`   | Error message                                 |
+| `user_id`   | The user_id you passed during initialization. |
+| `timestamp` | UTC timezone. When the function was trigger.  |
 
 #### Example
 
 ```jsx
 import { TrullySdkWeb } from "@trully/trully-react-components-npm";
 
-<TrullyWebSDK
+const handleError = (error) => {
+  console.log("Error - message", error.message);
+  console.log("Error - user_id", error.user_id);
+  console.log("Error - timestamp", error.timestamp);
+};
+
+<TrullySdkWeb
   configuration={{
-    // ...other required keys
-    handleError: (error) => {
-      console.log(error);
+    isDev: true,
+    apiKey: "YOUR_API_KEY",
+    user_id: "YOUR_USER_ID",
+    tag: "VALID_V4_UUID",
+    handleData: (response) => {
+      //What should be done with the obtained response?
     },
+    handleError,
   }}
 />;
 ```
@@ -348,7 +341,7 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
   configuration={{
     // ...required keys
     showLogo: true,
-    termsAndConditions: "https://www.trully.ai/t%C3%A9rminos-y-condiciones/",
+    termsAndConditions: "https://www.trully.ai/terminos-y-condiciones/",
     privacyPolicy: "https://www.trully.ai/politica-de-datos/",
   }}
 />;
@@ -365,6 +358,7 @@ include.
 | --------------- | ------------------------------------------------------------------------------------------------------------- |
 | `form`          | This will add a form to your process. The data collect with it can be select using the inputs key             |
 | `personal_info` | This will add a form asking for personal info such as complete name, date of birth, place of birth and gender |
+| `poa`           | This will Proof of Address process. Make sure your API Key includes this analysis                             |
 
 ##### inputs key
 
@@ -400,30 +394,26 @@ Images are loaded using an image HTML tag, so to change it you should pass the
 corresponding path to the image. Every one of these keys are optional. These are
 the default values
 
-| Key                 | Description                                                                            |
-| ------------------- | -------------------------------------------------------------------------------------- |
-| `logo`              | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/logo-trully.svg           |
-| `docIcon`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg                  |
-| `docOkIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_INEOK+color.svg      |
-| `brightnessIcon`    | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_Reflejo+color.svg    |
-| `docFocusedIcon`    | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_Ine+enfoque.svg      |
-| `docUnfocusedIcon`  | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_blur+color.svg       |
-| `permissions`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ModalWeb.svg              |
-| `cameraDeniedImage` | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/cameraDenied-1.svg        |
-| `timeoutIcon`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/no_element_timeout.svg    |
-| `errorIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/face_timeout.svg          |
-| `iconCheck`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon-check.svg            |
-| `datosIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Datos-1.svg               |
-| `IDIcon`            | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg                  |
-| `VideoIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Video-1.svg               |
-| `IDImage`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID2-1.svg                 |
-| `lightIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/luzIcon.svg               |
-| `crossIcon`         | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/retirarElementosIcon.svg  |
-| `videoFallback`     | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/livenessFallback.svg      |
-| `rotate`            | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/rotate.svg                |
-| `poorWifiIcon`      | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_coneccio%CC%81n.webp |
-| `poaReceipt`        | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/Recibo.svg      |
-| `poaDoc`            | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/poaDoc.svg      |
+| Key                | Description                                                                            |
+| ------------------ | -------------------------------------------------------------------------------------- |
+| `logo`             | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/logo-trully.svg           |
+| `docIcon`          | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg                  |
+| `docOkIcon`        | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_INEOK+color.svg      |
+| `brightnessIcon`   | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_Reflejo+color.svg    |
+| `docFocusedIcon`   | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_Ine+enfoque.svg      |
+| `docUnfocusedIcon` | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_blur+color.svg       |
+| `permissions`      | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ModalWeb.svg              |
+| `iconCheck`        | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/nuevo_Check.svg |
+| `datosIcon`        | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Datos-1.svg               |
+| `IDIcon`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg                  |
+| `VideoIcon`        | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Video-1.svg               |
+| `IDImage`          | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID2-1.svg                 |
+| `lightIcon`        | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/luzIcon.svg               |
+| `crossIcon`        | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/retirarElementosIcon.svg  |
+| `videoFallback`    | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/livenessFallback.svg      |
+| `rotate`           | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/rotate.svg                |
+| `poaReceipt`       | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/Recibo.svg      |
+| `poaDoc`           | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/poaDoc.svg      |
 
 #### Example
 
@@ -441,9 +431,6 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
         docFocusedIcon: "YOUR_IMAGE_PATH",
         docUnfocusedIcon: "YOUR_IMAGE_PATH",
         permissions: "YOUR_IMAGE_PATH",
-        cameraDeniedImage: "YOUR_IMAGE_PATH",
-        timeoutIcon: "YOUR_IMAGE_PATH",
-        errorIcon: "YOUR_IMAGE_PATH",
         iconCheck: "YOUR_IMAGE_PATH",
         lightIcon: "YOUR_IMAGE_PATH",
         crossIcon: "YOUR_IMAGE_PATH",
@@ -453,7 +440,6 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
         IDIcon: "YOUR_IMAGE_PATH",
         VideoIcon: "YOUR_IMAGE_PATH",
         IDImage: "YOUR_IMAGE_PATH",
-        poorWifiIcon: "YOUR_IMAGE_PATH",
         poaReceipt: "YOUR_IMAGE_PATH",
         poaDoc: "YOUR_IMAGE_PATH",
     },
@@ -481,13 +467,13 @@ corresponding path to the video. We recommend to change the videoFallback image
 if you're going to change livenessVideo. videoFallback is use as livenessVideo
 poster. Every one of these keys are optional. These are the default values.
 
-| Key             | Description                                                                             |
-| --------------- | --------------------------------------------------------------------------------------- |
-| `livenessVideo` | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/LivenessVideo.webm         |
-| `docFront`      | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneFront.webm              |
-| `docBack`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneBack.webm               |
-| `docFail`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneFail.webm               |
-| `poaIntro`      | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/comprobante.webm |
+| Key             | Description                                                                                                                          |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `livenessVideo` | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/LivenessVideo.webm                                                      |
+| `docFront`      | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneFront.webm                                                           |
+| `docBack`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneBack.webm                                                            |
+| `docFail`       | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/IneFail.webm                                                            |
+| `poaIntro`      | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/comprobante.webm - (only if you use Proof of Address process) |
 
 #### Example
 
@@ -502,6 +488,7 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
       docFront: "YOUR_VIDEO_PATH",
       docBack: "YOUR_VIDEO_PATH",
       docFail: "YOUR_VIDEO_PATH",
+      // only if you use Proof of Address process
       poaIntro: "YOUR_VIDEO_PATH",
     },
   }}
@@ -633,6 +620,7 @@ be used accordingly.
 | `personalInfo`   | This page will appear if you added "personal_info" to pagesToInclude key. Will show a form asking for complete name, date of birth, place of birth and gender |
 | `documentReader` | This key represents the process of getting document images                                                                                                    |
 | `liveness`       | This key represents the process of getting user selfie                                                                                                        |
+| `poa`            | This key represents the Proof of Address process. It will appear if you added "poa" to pagesToInclude key. Make sure your API Key includes this analysis      |
 | `exit`           | This page will thank the user and let them know we got the data                                                                                               |
 
 #### Keys structure
@@ -898,14 +886,15 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
 Colors will allow you change the different colors to match your brand design.
 Every one of these keys are optional. These are the default values.
 
-| Key          | Description |
-| ------------ | ----------- |
-| `primary`    | #475fff     |
-| `secondary`  | #001063     |
-| `disabled`   | #E5EBF3     |
-| `white`      | #FFFFFF     |
-| `background` | #FFFFFF     |
-| `icons`      | None        |
+| Key                  | Description          |
+| -------------------- | -------------------- |
+| `primary`            | #475fff              |
+| `secondary`          | #001063              |
+| `disabled`           | #E5EBF3              |
+| `white`              | #FFFFFF              |
+| `background`         | #FFFFFF              |
+| `icons`              | None                 |
+| `illustration_color` | ILLUSTRATION.DEFAULT |
 
 ##### Example
 
@@ -923,11 +912,65 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
         white: "YOUR_HEX_COLOR",
         background: "YOUR_HEX_COLOR",
         icons: "YOUR_HEX_COLOR",
+        illustration_color: ILLUSTRATION.DEFAULT | ILLUSTRATION.MONO | ILLUSTRATION.ELECTRIC | ILLUSTRATION.3D
       },
     },
   }}
 />;
 ```
+
+##### illustration_color
+
+For the errors we use illustrations that could not be changed but you could
+choose the color style for them. There are four color styles and you can choose
+it using the ILLUSTRATION enum. Here are the values
+
+| ILLUSTRATION |
+| ------------ |
+| `DEFAULT`    |
+| `MONO`       |
+| `ELECTRIC`   |
+| `3D`         |
+
+###### DEFAULT
+
+| Key                        | Description                                                                                                   |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `Timeout Cliente`          | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/default/Advertencia_original.svg    |
+| `Error API Key`            | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/default/ApiKeyError_original.svg    |
+| `Server Error`             | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/default/Error_original.svg          |
+| `Low Internet Speed`       | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/default/RedBloqueada_original.svg   |
+| `Camera Permission Denied` | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/default/VideoBloqueado_original.svg |
+
+###### MONO
+
+| Key                        | Description                                                                                                     |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `Timeout Cliente`          | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/mono/Advertencia_monocromatico.svg    |
+| `Error API Key`            | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/mono/ApiKeyError_monocromatico.svg    |
+| `Server Error`             | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/mono/Error_monocromatico.svg          |
+| `Low Internet Speed`       | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/mono/RedBloqueada_monocromatico.svg   |
+| `Camera Permission Denied` | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/mono/VideoBloqueado_monocromatico.svg |
+
+###### ELECTRIC
+
+| Key                        | Description                                                                                                     |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `Timeout Cliente`          | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/electric/Advertencia_electrico.svg    |
+| `Error API Key`            | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/electric/ApiKeyError_electrico.svg    |
+| `Server Error`             | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/electric/Error_electrico.svg          |
+| `Low Internet Speed`       | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/electric/RedBloqueada_electrico.svg   |
+| `Camera Permission Denied` | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/electric/VideoBloqueado_electrico.svg |
+
+###### 3D
+
+| Key                        | Description                                                                                        |
+| -------------------------- | -------------------------------------------------------------------------------------------------- |
+| `Timeout Cliente`          | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/3d/Advertencia_3d.svg    |
+| `Error API Key`            | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/3d/ApiKeyError_3d.svg    |
+| `Server Error`             | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/3d/Error_3d.svg          |
+| `Low Internet Speed`       | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/3d/RedBloqueada_3d.svg   |
+| `Camera Permission Denied` | https://trully-api-documentation.s3.us-east-1.amazonaws.com/illustrations/3d/VideoBloqueado_3d.svg |
 
 ## <a id="add-it-next"></a>Add it to Next.js
 
@@ -1176,6 +1219,7 @@ can specify the actions to be taken when the server request is successful
 | `document_image_complete`      | Base64 string. Document front uncropped                                                                                                                          |
 | `document_image_back`          | Base64 string. Document back cropped                                                                                                                             |
 | `document_image_back_complete` | Base64 string. Document back uncropped                                                                                                                           |
+| `poa_image`                    | Base64 string. Proof Of Address receipt. Only if you have pagesToInclude: ["poa"]                                                                                |
 
 #### Receiving data with webhook
 
@@ -1217,56 +1261,6 @@ const handleData = (response) => {
       //What should be done if there is an error retrieving the response?
     },
     webhook: "VALID_WEBHOOK_URL",
-  }}
-/>;
-```
-
-## handleError
-
-We recommend you save this error into a log file.
-
-| Key         | Description                                     |
-| ----------- | ----------------------------------------------- |
-| `process`   | Which part of the process trigger the function. |
-| `message`   | Error message                                   |
-| `userID`    | The userID you passed during initialization.    |
-| `timestamp` | UTC timezone. When the function was trigger.    |
-| `error`     | Object. Extra information about the error       |
-
-### Names Table
-
-| Name                  | Description                                 |
-| --------------------- | ------------------------------------------- |
-| `SAVING_TRACK_STEP`   | HTTP error while saving the current step.   |
-| `OBTAINING_IP`        | HTTP error getting device IP data.          |
-| `GETTING_FRONT_IMAGE` | HTTP error getting document front image.    |
-| `GETTING_BACK_IMAGE`  | HTTP error getting document front image.    |
-| `GETTING_SESSION_ID`  | HTTP error getting Liveness sessionId.      |
-| `GETTING_CREDENTIALS` | HTTP error authenticating Liveness session. |
-| `GETTING_LIVENESS`    | HTTP error processing Liveness image.       |
-| `GETTING_DM_RESPONSE` | HTTP error processing images.               |
-
-#### Example
-
-```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
-
-const handleError = (error) => {
-  console.log("Error - name", error.name);
-  console.log("Error - description", error.description);
-  console.log("Error - error", error.error);
-};
-
-<TrullySdkWeb
-  configuration={{
-    isDev: true,
-    apiKey: "YOUR_API_KEY",
-    user_id: "YOUR_USER_ID",
-    tag: "VALID_V4_UUID",
-    handleData: (response) => {
-      //What should be done with the obtained response?
-    },
-    handleError,
   }}
 />;
 ```
@@ -1331,12 +1325,6 @@ const handleError = (error) => {
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_blur+color.svg",
       permissions:
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ModalWeb.svg",
-      cameraDeniedImage:
-        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/cameraDenied-1.svg",
-      timeoutIcon:
-        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/no_element_timeout.svg",
-      errorIcon:
-        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/face_timeout.svg",
       iconCheck:
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon-check.svg",
       lightIcon:
@@ -1355,8 +1343,6 @@ const handleError = (error) => {
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/Video-1.svg",
       IDImage:
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID2-1.svg",
-      poorWifiIcon:
-        "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_coneccio%CC%81n.webp",
       poaReceipt:
         "https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/Recibo.svg",
       poaDoc:
@@ -1446,6 +1432,7 @@ const handleError = (error) => {
         white: "#FFFFFF",
         background: "#FFFFFF",
         icons: undefined,
+        illustration_color: ILLUSTRATION.DEFAULT,
       },
     },
   }}
