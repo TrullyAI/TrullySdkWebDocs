@@ -118,37 +118,6 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
 />;
 ```
 
-## Tracking process
-
-You can declare a tag to track every process TrullySdkWeb has run. This key is
-optional but we recommend using it from the start.
-
-| Key   | Description                                                                      |
-| ----- | -------------------------------------------------------------------------------- |
-| `tag` | Valid uuid string. If you do not provide it, one will automatically generated.   |
-|       | One analysis could run several process. Each one will be available with this tag |
-
-#### Example
-
-```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
-
-<TrullySdkWeb
-  configuration={{
-    isDev: true,
-    apiKey: "YOUR_API_KEY",
-    user_id: "YOUR_USER_ID",
-    tag: "VALID_V4_UUID",
-    handleData: (response) => {
-      //What should be done with the obtained response?
-    },
-    handleError: (error) => {
-      //What should be done if there is an error retrieving the response?
-    },
-  }}
-/>;
-```
-
 ## Combine with other Decision Maker analysis
 
 TrullySdkWeb helps you to get a candidate data (by default you'll be collecting
@@ -174,7 +143,6 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
     isDev: true,
     apiKey: "YOUR_API_KEY",
     user_id: "YOUR_USER_ID",
-    tag: "VALID_V4_UUID",
     handleData: (response) => {
       //What should be done with the obtained response?
     },
@@ -301,7 +269,6 @@ const handleError = (error) => {
     isDev: true,
     apiKey: "YOUR_API_KEY",
     user_id: "YOUR_USER_ID",
-    tag: "VALID_V4_UUID",
     handleData: (response) => {
       //What should be done with the obtained response?
     },
@@ -1054,7 +1021,6 @@ const Trully = () => {
         isDev: true,
         apiKey: "YOUR_API_KEY",
         user_id: "YOUR_USER_ID",
-        tag: "VALID_V4_UUID",
         handleData: (response) => {
           //What should be done with the obtained response?
         },
@@ -1153,7 +1119,6 @@ const Trully = () => {
         isDev: true,
         apiKey: "YOUR_API_KEY",
         user_id: "YOUR_USER_ID",
-        tag: "VALID_V4_UUID",
         handleData: (data) => {
           //What should be done with the obtained data?
         },
@@ -1205,7 +1170,7 @@ can specify the actions to be taken when the server request is successful
 
 | Key                            | Description                                                                                                                                                      |
 | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tag`                          | String. The tag from the process. Automatically generated when you didn't pass one through configuration prop                                                    |
+| `tag`                          | String. The tag from the process. Automatically generated                                                                                                        |
 | `user_id`                      | String. The user_id you passed in configuration                                                                                                                  |
 | `raw_data`                     | Object containing the unprocessed data from the Decision Maker. You can learn more about [here](https://docs.trully.ai/reference/post_v1-decision-maker-predict) |
 | `ip`                           | String. The ip of the device obtained during the process. Empty string if we couldn't get the ip                                                                 |
@@ -1255,7 +1220,6 @@ const handleData = (response) => {
     isDev: true,
     apiKey: "YOUR_API_KEY",
     user_id: "YOUR_USER_ID",
-    tag: "VALID_V4_UUID",
     handleData,
     handleError: (error) => {
       //What should be done if there is an error retrieving the response?
@@ -1307,7 +1271,6 @@ const handleError = (error) => {
     isDev: true,
     apiKey: "YOUR_API_KEY",
     user_id: "YOUR_USER_ID",
-    tag: "VALID_V4_UUID",
     handleData,
     handleError,
     showLogo: true,
