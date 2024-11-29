@@ -1174,7 +1174,7 @@ can specify the actions to be taken when the server request is successful
 | `user_id`                      | String. The user_id you passed in configuration                                                                                                                  |
 | `raw_data`                     | Object containing the unprocessed data from the Decision Maker. You can learn more about [here](https://docs.trully.ai/reference/post_v1-decision-maker-predict) |
 | `ip`                           | String. The ip of the device obtained during the process. Empty string if we couldn't get the ip                                                                 |
-| `location`                     | Object. Keys lat/lng. The coordinates of the device obtained during the process. Keys lat/lng will be empty string if we couldn't get the location               |
+| `location`\*                   | Object. Keys lat/lng. The coordinates of the device obtained during the process. Keys lat/lng will be empty string if we couldn't get the location               |
 | `label`                        | String. The label generate by the Decision Maker for the user who has completed the process                                                                      |
 |                                | No Threat - low risk user. Review - medium risk user. Potential Threat - high risk                                                                               |
 | `reason`                       | Array. Contains the reasons behind the decision                                                                                                                  |
@@ -1185,6 +1185,9 @@ can specify the actions to be taken when the server request is successful
 | `document_image_back`          | Base64 string. Document back cropped                                                                                                                             |
 | `document_image_back_complete` | Base64 string. Document back uncropped                                                                                                                           |
 | `poa_image`                    | Base64 string. Proof Of Address receipt. Only if you have pagesToInclude: ["poa"]                                                                                |
+
+\*Given the way browsers works, there is a small chance the user location won't
+be available if the user completes the process using a mobile device.
 
 #### Receiving data with webhook
 
