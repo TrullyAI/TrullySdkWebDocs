@@ -60,7 +60,7 @@ npm i @trully/trully-sdk-react
 To import the styles, go to your main.js file and add the following import
 
 ```javascript
-import "../node_modules/@trully/trully-react-components-npm/dist/index.css";
+import "../node_modules/@trully/trully-sdk-react/dist/index.css";
 ```
 
 ##### Prefetch the images/videos
@@ -101,7 +101,7 @@ five required keys: "isDev", "apiKey", "user_id", "handleData" and
 #### Example
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullySdkWeb
   configuration={{
@@ -136,7 +136,7 @@ responses passing the request_id in the configuration object.
 #### Example
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullySdkWeb
   configuration={{
@@ -184,7 +184,7 @@ receive the data from the previous completed step.
 ##### Example
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullyWebSDK
   configuration={{
@@ -223,7 +223,7 @@ needed for the Decision Maker.
 #### Example
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullyWebSDK
   configuration={{
@@ -256,7 +256,7 @@ We recommend you save this error into a log file.
 #### Example
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 const handleError = (error) => {
   console.log("Error - message", error.message);
@@ -302,7 +302,7 @@ This example shows the default values for the `showLogo`, `termsAndConditions`
 and `privacyPolicy` keys
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullySdkWeb
   configuration={{
@@ -325,7 +325,6 @@ include.
 | --------------- | ------------------------------------------------------------------------------------------------------------- |
 | `form`          | This will add a form to your process. The data collect with it can be select using the inputs key             |
 | `personal_info` | This will add a form asking for personal info such as complete name, date of birth, place of birth and gender |
-| `poa`           | This will Proof of Address process. Make sure your API Key includes this analysis                             |
 
 ##### inputs key
 
@@ -343,7 +342,7 @@ asked for. There are no inputs shown by default.
 #### Example
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullyWebSDK
   configuration={{
@@ -385,7 +384,7 @@ the default values
 #### Example
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullySdkWeb
   configuration={{
@@ -445,7 +444,7 @@ poster. Every one of these keys are optional. These are the default values.
 #### Example
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullySdkWeb
   configuration={{
@@ -548,31 +547,6 @@ of an specific video.
 }
 ```
 
-###### poaIntro
-
-```css
-.trully-poa .trully-video-container {
-  width: 55%;
-  gap: 0;
-}
-
-.trully-poa .trully-video-position {
-  padding: 0;
-  position: relative;
-  width: 100%;
-  padding-top: 70%;
-}
-
-.trully-poa .trully-video-position video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-```
-
 ### Change texts
 
 You can change some texts by using the texts key. This key should receive an
@@ -587,7 +561,6 @@ be used accordingly.
 | `personalInfo`   | This page will appear if you added "personal_info" to pagesToInclude key. Will show a form asking for complete name, date of birth, place of birth and gender |
 | `documentReader` | This key represents the process of getting document images                                                                                                    |
 | `liveness`       | This key represents the process of getting user selfie                                                                                                        |
-| `poa`            | This key represents the Proof of Address process. It will appear if you added "poa" to pagesToInclude key. Make sure your API Key includes this analysis      |
 | `exit`           | This page will thank the user and let them know we got the data                                                                                               |
 
 #### Keys structure
@@ -682,26 +655,6 @@ other page. Here are the default values you'll be changing
 | `title`   | String. Inténtalo de nuevo |
 | `btnText` | String. Reintentar         |
 
-##### poa
-
-This key represents the process of getting user Proof of Address. This process
-has different pages. Those pages are represented by keys of the poa object. Here
-is the structure of the poa process.
-
-| Key        | Description                                                                |
-| ---------- | -------------------------------------------------------------------------- |
-| `appIntro` | This page will prompt the user to ready itself to take a the receipt photo |
-
-Each of the keys has the same logic you would use to modify the text of any
-other page. Here are the default values you'll be changing
-
-###### appIntro
-
-| Key       | Description                                                |
-| --------- | ---------------------------------------------------------- |
-| `title`   | String. Toma una fotografía de un comprobante de domicilio |
-| `btnText` | String. Tomar fotografía                                   |
-
 ##### Exit
 
 | Key        | Description                                   |
@@ -712,7 +665,7 @@ other page. Here are the default values you'll be changing
 #### Example
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullyWebSDK
   configuration={{
@@ -757,12 +710,6 @@ import { TrullySdkWeb } from "@trully/trully-react-components-npm";
           btnText: "YOUR_TEXT",
         },
       },
-      poa: {
-        appIntro: {
-          title: "YOUR_TEXT",
-          btnText: "YOUR_TEXT",
-        },
-      },
       exit: {
         title: "YOUR_TEXT",
         subtitle: "YOUR_TEXT",
@@ -797,7 +744,7 @@ default values.
 ###### Example
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullySdkWeb
   configuration={{
@@ -827,7 +774,7 @@ Sans", sans-serif
 ##### Example
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullySdkWeb
   configuration={{
@@ -866,7 +813,7 @@ Every one of these keys are optional. These are the default values.
 ##### Example
 
 ```jsx
-import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullySdkWeb
   configuration={{
@@ -1184,7 +1131,6 @@ can specify the actions to be taken when the server request is successful
 | `document_image_complete`      | Base64 string. Document front uncropped                                                                                                                          |
 | `document_image_back`          | Base64 string. Document back cropped                                                                                                                             |
 | `document_image_back_complete` | Base64 string. Document back uncropped                                                                                                                           |
-| `poa_image`                    | Base64 string. Proof Of Address receipt. Only if you have pagesToInclude: ["poa"]                                                                                |
 
 \*Given the way browsers works, there is a small chance the user location won't
 be available if the user completes the process using a mobile device.
@@ -1278,7 +1224,7 @@ const handleError = (error) => {
     handleError,
     showLogo: true,
     images: {
-      logo: "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/logo-trully.svg",
+      logo: "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/logo-trully-unico.svg",
       docIcon:
         "https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg",
       docOkIcon:
@@ -1370,13 +1316,6 @@ const handleError = (error) => {
         retry: {
           title: "Inténtalo de nuevo",
           btnText: "Reintentar",
-        },
-      },
-      // Add only if you have pagesToInclude: ["poa"]
-      poa: {
-        appIntro: {
-          title: "Toma una fotografía de un comprobante de domicilio",
-          btnText: "Tomar fotografía",
         },
       },
       exit: {
