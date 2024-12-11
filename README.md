@@ -362,7 +362,7 @@ the default values
 
 | Key                | Description                                                                            |
 | ------------------ | -------------------------------------------------------------------------------------- |
-| `logo`             | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/logo-trully.svg           |
+| `logo`             | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/logo-trully-unico.svg     |
 | `docIcon`          | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/ID-1.svg                  |
 | `docOkIcon`        | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_INEOK+color.svg      |
 | `brightnessIcon`   | https://trully-api-documentation.s3.amazonaws.com/trully-sdk/icon_Reflejo+color.svg    |
