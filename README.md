@@ -73,9 +73,9 @@ the loading time of the images and videos
 
 ## <a id="how-to-use"></a>How to use
 
-Before start using the component we need to set some data on our server. Please
-contact with our Costumer Experience team to ask for this set up. <br> We are
-going to need the following information
+Before start using the TrullySdkWeb component we need to set some data on our
+server. Please contact us to ask for this set up. <br> We are going to need the
+following information
 
 |                     | Description                                                                                                                                                | Example                                                                                      |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
@@ -95,7 +95,7 @@ five required keys: "isDev", "apiKey", "user_id", "handleData" and
 | Key                 | Description                                                                                                                        |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `isDev`             | Set it to true when your working in development                                                                                    |
-| `apiKey`            | Your cliente API Key                                                                                                               |
+| `apiKey`            | Your cliente API Key. If isDev is true you should use the sandbox API Key. Otherwise, use the prod one                             |
 | `user_id`           | String. Will match the response you get with the user completing the process                                                       |
 | `handleData`        | Should be a callback function receiving a parameter. This parameter will hold the process result.                                  |
 | `handleError`       | Should be a callback function receiving a parameter. This parameter will hold an error object.                                     |
@@ -112,14 +112,14 @@ import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullySdkWeb
   configuration={{
-    isDev: true,
-    apiKey: "YOUR_API_KEY",
+    isDev: true, // Change it to false in production
+    apiKey: "YOUR_API_KEY", // Remember to use sandbox API key when isDev: true and prod API key when isDev: false
     user_id: "YOUR_USER_ID",
     handleData: (response) => {
-      //What should be done with the obtained response?
+      // What should be done with the obtained response?
     },
     handleError: (error) => {
-      //What should be done if there is an error retrieving the response?
+      // What should be done if there is an error retrieving the response?
     },
   }}
 />;
@@ -147,14 +147,14 @@ import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 <TrullySdkWeb
   configuration={{
-    isDev: true,
-    apiKey: "YOUR_API_KEY",
+    isDev: true, // Change it to false in production
+    apiKey: "YOUR_API_KEY", // Remember to use sandbox API key when isDev: true and prod API key when isDev: false
     user_id: "YOUR_USER_ID",
     handleData: (response) => {
-      //What should be done with the obtained response?
+      // What should be done with the obtained response?
     },
     handleError: (error) => {
-      //What should be done if there is an error retrieving the response?
+      // What should be done if there is an error retrieving the response?
     },
     request_id: "REQUEST_ID_FOR_THE_ANALYSIS_OF_OTHER_DATA_POINT",
   }}
@@ -273,11 +273,11 @@ const handleError = (error) => {
 
 <TrullySdkWeb
   configuration={{
-    isDev: true,
-    apiKey: "YOUR_API_KEY",
+    isDev: true, // Change it to false in production
+    apiKey: "YOUR_API_KEY", // Remember to use sandbox API key when isDev: true and prod API key when isDev: false
     user_id: "YOUR_USER_ID",
     handleData: (response) => {
-      //What should be done with the obtained response?
+      // What should be done with the obtained response?
     },
     handleError,
   }}
@@ -438,10 +438,10 @@ const Trully = () => {
         apiKey: "YOUR_API_KEY",
         user_id: "YOUR_USER_ID",
         handleData: (response) => {
-          //What should be done with the obtained response?
+          // What should be done with the obtained response?
         },
         handleError: (error) => {
-          //What should be done if there is an error retrieving the response?
+          // What should be done if there is an error retrieving the response?
         },
       }}
     />
@@ -532,14 +532,14 @@ const Trully = () => {
   return (
     <TrullySdkWeb
       configuration={{
-        isDev: true,
-        apiKey: "YOUR_API_KEY",
+        isDev: true, // Change it to false in production
+        apiKey: "YOUR_API_KEY", // Remember to use sandbox API key when isDev: true and prod API key when isDev: false
         user_id: "YOUR_USER_ID",
         handleData: (data) => {
-          //What should be done with the obtained data?
+          // What should be done with the obtained data?
         },
         handleError: (error) => {
-          //What should be done if there is an error retrieving the data?
+          // What should be done if there is an error retrieving the data?
         },
       }}
     />
@@ -635,8 +635,8 @@ const handleData = (response) => {
 
 <TrullySdkWeb
   configuration={{
-    isDev: true,
-    apiKey: "YOUR_API_KEY",
+    isDev: true, // Change it to false in production
+    apiKey: "YOUR_API_KEY", // Remember to use sandbox API key when isDev: true and prod API key when isDev: false
     user_id: "YOUR_USER_ID",
     handleData,
     handleError: (error) => {
@@ -686,8 +686,8 @@ const handleError = (error) => {
 
 <TrullySdkWeb
   configuration={{
-    isDev: true,
-    apiKey: "YOUR_API_KEY",
+    isDev: true, // Change it to false in production
+    apiKey: "YOUR_API_KEY", // Remember to use sandbox API key when isDev: true and prod API key when isDev: false
     user_id: "YOUR_USER_ID",
     handleData,
     handleError,
