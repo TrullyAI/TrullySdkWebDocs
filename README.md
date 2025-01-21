@@ -591,6 +591,7 @@ can specify the actions to be taken when the server request is successful
 | `raw_data`                     | Object containing the unprocessed data from the Decision Maker. You can learn more about [here](https://docs.trully.ai/reference/post_v1-decision-maker-predict) |
 | `ip`                           | String. The ip of the device obtained during the process. Empty string if we couldn't get the ip                                                                 |
 | `location`\*                   | Object. Keys lat/lng. The coordinates of the device obtained during the process. Keys lat/lng will be empty string if we couldn't get the location               |
+| `calculated_rfc`               | String. The RFC calculated from the document. Could be undefined                                                                                                 |
 | `label`                        | String. The label generate by the Decision Maker for the user who has completed the process                                                                      |
 |                                | No Threat - low risk user. Review - medium risk user. Potential Threat - high risk                                                                               |
 | `reason`                       | Array. Contains the reasons behind the decision                                                                                                                  |
