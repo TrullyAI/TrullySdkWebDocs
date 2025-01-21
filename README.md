@@ -103,7 +103,9 @@ five required keys: "isDev", "apiKey", "user_id", "handleData" and
 | `handleTrackDetail` | (optional) Callback. Catch the user's interaction during the operation.                                                            |
 | `userIDIsCURP*`     | (optional) Boolean. If you're using the CURP as user_id and want to send it to the Decision Maker mark this as true. Default false |
 
-\*curp input won't be showing in form page
+\*curp input won't be showing in form page.
+
+##### ⚠️ Please note that if you choose to use the user curp as user_id and the value is not a valid curp we won't be sending that value to the Decision Maker. It's very important that you verify the value before passing it to the SDK.
 
 #### Example
 
@@ -591,6 +593,7 @@ can specify the actions to be taken when the server request is successful
 | `raw_data`                     | Object containing the unprocessed data from the Decision Maker. You can learn more about [here](https://docs.trully.ai/reference/post_v1-decision-maker-predict) |
 | `ip`                           | String. The ip of the device obtained during the process. Empty string if we couldn't get the ip                                                                 |
 | `location`\*                   | Object. Keys lat/lng. The coordinates of the device obtained during the process. Keys lat/lng will be empty string if we couldn't get the location               |
+| `calculated_rfc`               | String. The RFC calculated from the document. Could be undefined                                                                                                 |
 | `label`                        | String. The label generate by the Decision Maker for the user who has completed the process                                                                      |
 |                                | No Threat - low risk user. Review - medium risk user. Potential Threat - high risk                                                                               |
 | `reason`                       | Array. Contains the reasons behind the decision                                                                                                                  |
