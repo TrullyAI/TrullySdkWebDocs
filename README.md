@@ -103,7 +103,9 @@ five required keys: "isDev", "apiKey", "user_id", "handleData" and
 | `handleTrackDetail` | (optional) Callback. Catch the user's interaction during the operation.                                                            |
 | `userIDIsCURP*`     | (optional) Boolean. If you're using the CURP as user_id and want to send it to the Decision Maker mark this as true. Default false |
 
-\*curp input won't be showing in form page
+\*curp input won't be showing in form page.
+
+##### ⚠️ Please note that if you choose to use the user curp as user_id and the value is not a valid curp we won't be sending that value to the Decision Maker. It's very important that you verify the value before passing it to the SDK.
 
 #### Example
 
