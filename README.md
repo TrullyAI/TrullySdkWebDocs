@@ -604,7 +604,7 @@ using the component.
 
 ### Camera permission was accepted, but a message asking to accept it appears
 
-This may happen for three reasons:
+This may happen for:
 
 1. The component needs to work under the HTTPS protocol because the Browser
    Camera API will revoke access to the device if the connection is not secure.
@@ -620,7 +620,12 @@ This may happen for three reasons:
    the Camera permissions denied. It's important to let the users know they'll
    have to change the App permissions to allow the Browser Camera API to ask for
    permissions
-5. When the website hosting the SDK is opened via an integrated browser (i.e.,
+
+### There is no image from the Camera
+
+This may happen for:
+
+1. When the website hosting the SDK is opened via an integrated browser (i.e.,
    the browser from Messenger), the SDK may fail due to permission management
    issues. For this case, ask the user to copy the link and paste it directly to
    a browser (i.e., Chrome).
