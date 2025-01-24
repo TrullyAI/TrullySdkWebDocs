@@ -374,8 +374,8 @@ const Trully = () => {
   return (
     <TrullySdkWeb
       configuration={{
-        isDev: true,
-        apiKey: "YOUR_API_KEY",
+        isDev: true, // Change it to false in production
+        apiKey: "YOUR_API_KEY", // Remember to use sandbox API key when isDev: true and prod API key when isDev: false
         user_id: "YOUR_USER_ID",
         handleData: (response) => {
           // What should be done with the obtained response?
@@ -620,3 +620,7 @@ This may happen for three reasons:
    the Camera permissions denied. It's important to let the users know they'll
    have to change the App permissions to allow the Browser Camera API to ask for
    permissions
+5. When the website hosting the SDK is opened via an integrated browser (i.e.,
+   the browser from Messenger), the SDK may fail due to permission management
+   issues. For this case, ask the user to copy the link and paste it directly to
+   a browser (i.e., Chrome).
