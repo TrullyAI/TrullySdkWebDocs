@@ -39,7 +39,9 @@ follow the steps in the [<b>Add it to Next.js</b>](#add-it-next) section
 10. [Full Example](#full-example)
 11. [Known issues](#known-issues)
 
-#### ⚠️ Before start using the TrullySdkWeb component we need to set some data on our server. Please contact us to ask for this set up. <br> We are going to need the following information
+#### ⚠️ Before start using the TrullySdkWeb component we need to set some data on our server. <br> Please contact us to ask for this set up.
+
+We are going to need the following information:
 
 |                     | Description                                                                                                                                                | Example                                                                                      |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
