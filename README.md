@@ -49,6 +49,8 @@ follow the steps in the [<b>Add it to Next.js</b>](#add-it-next) section
 | `Domains`           | Every domain url in which you are going to use the TrullySdkWeb component. Make sure to let us know which are for production and which are for development | https://localhost:5374 - dev                                                                 |
 |                     |                                                                                                                                                            | https://dominio.com - prod                                                                   |
 
+##### ⚠️ logo, button color and button color text are the only styles that can be replace
+
 ## Install
 
 ```jsx
@@ -63,9 +65,7 @@ To import the styles, go to your main.js file and add the following import
 import "../node_modules/@trully/trully-sdk-react/dist/index.css";
 ```
 
-## <a id="how-to-use"></a>How to use |
-
-#### ⚠️ logo, button color and button color text are the only styles that can be replace
+## <a id="how-to-use"></a>How to use
 
 The component receives the "configuration" prop. This prop should be an object
 containing the keys that will let you adapt it to your needs. There are the only
