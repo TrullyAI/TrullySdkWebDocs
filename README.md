@@ -39,6 +39,16 @@ follow the steps in the [<b>Add it to Next.js</b>](#add-it-next) section
 10. [Full Example](#full-example)
 11. [Known issues](#known-issues)
 
+#### ⚠️ Before start using the TrullySdkWeb component we need to set some data on our server. Please contact us to ask for this set up. <br> We are going to need the following information
+
+|                     | Description                                                                                                                                                | Example                                                                                      |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `logo`              | The url of your company logo to replace our                                                                                                                | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/logo-trully-unico.svg |
+| `Button color`      | Hexadecimal color code for the button background                                                                                                           | #475FFF                                                                                      |
+| `Button color text` | Hexadecimal color code for the button text                                                                                                                 | #FFFFFF                                                                                      |
+| `Domains`           | Every domain url in which you are going to use the TrullySdkWeb component. Make sure to let us know which are for production and which are for development | https://localhost:5374 - dev                                                                 |
+|                     |                                                                                                                                                            | https://dominio.com - prod                                                                   |
+
 ## Install
 
 ```jsx
@@ -53,19 +63,7 @@ To import the styles, go to your main.js file and add the following import
 import "../node_modules/@trully/trully-sdk-react/dist/index.css";
 ```
 
-## <a id="how-to-use"></a>How to use
-
-Before start using the TrullySdkWeb component we need to set some data on our
-server. Please contact us to ask for this set up. <br> We are going to need the
-following information
-
-|                     | Description                                                                                                                                                | Example                                                                                      |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `logo`              | The url of your company logo to replace our                                                                                                                | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/logo-trully-unico.svg |
-| `Button color`      | Hexadecimal color code for the button background                                                                                                           | #475FFF                                                                                      |
-| `Button color text` | Hexadecimal color code for the button text                                                                                                                 | #FFFFFF                                                                                      |
-| `Domains`           | Every domain url in which you are going to use the TrullySdkWeb component. Make sure to let us know which are for production and which are for development | https://localhost:5374 - dev                                                                 |
-|                     |                                                                                                                                                            | https://dominio.com - prod                                                                   |
+## <a id="how-to-use"></a>How to use |
 
 #### ⚠️ logo, button color and button color text are the only styles that can be replace
 
