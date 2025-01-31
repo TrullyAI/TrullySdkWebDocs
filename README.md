@@ -483,23 +483,23 @@ can specify the actions to be taken when the server request is successful
 
 ### handleData
 
-| Key                            | Description                                                                                                                                                      |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tag`                          | String. The tag from the process. Automatically generated                                                                                                        |
-| `user_id`                      | String. The user_id you passed in configuration                                                                                                                  |
-| `raw_data`                     | Object containing the unprocessed data from the Decision Maker. You can learn more about [here](https://docs.trully.ai/reference/post_v1-decision-maker-predict) |
-| `ip`                           | String. The ip of the device obtained during the process. Empty string if we couldn't get the ip                                                                 |
-| `location`\*                   | Object. Keys lat/lng. The coordinates of the device obtained during the process. Keys lat/lng will be empty string if we couldn't get the location               |
-| `calculated_rfc`               | String. The RFC calculated from the document. Could be undefined                                                                                                 |
-| `label`                        | String. The label generate by the Decision Maker for the user who has completed the process                                                                      |
-|                                | No Threat - low risk user. Review - medium risk user. Potential Threat - high risk                                                                               |
-| `reason`                       | Array. Contains the reasons behind the decision                                                                                                                  |
-| `request_id`                   | String. ID created by the Decision Maker                                                                                                                         |
-| `image`                        | Base64 string. Selfie                                                                                                                                            |
-| `document_image`               | Base64 string. Document front cropped                                                                                                                            |
-| `document_image_complete`      | Base64 string. Document front uncropped                                                                                                                          |
-| `document_image_back`          | Base64 string. Document back cropped                                                                                                                             |
-| `document_image_back_complete` | Base64 string. Document back uncropped                                                                                                                           |
+| Key                       | Description                                                                                                                                                      |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tag`                     | String. The tag from the process. Automatically generated                                                                                                        |
+| `user_id`                 | String. The user_id you passed in configuration                                                                                                                  |
+| `raw_data`                | Object containing the unprocessed data from the Decision Maker. You can learn more about [here](https://docs.trully.ai/reference/post_v1-decision-maker-predict) |
+| `ip`                      | String. The ip of the device obtained during the process. Empty string if we couldn't get the ip                                                                 |
+| `location`\*              | Object. Keys lat/lng. The coordinates of the device obtained during the process. Keys lat/lng will be empty string if we couldn't get the location               |
+| `calculated_rfc`          | String. The RFC calculated from the document. Could be undefined                                                                                                 |
+| `label`                   | String. The label generate by the Decision Maker for the user who has completed the process                                                                      |
+|                           | No Threat - low risk user. Review - medium risk user. Potential Threat - high risk                                                                               |
+| `reason`                  | Array. Contains the reasons behind the decision                                                                                                                  |
+| `request_id`              | String. ID created by the Decision Maker                                                                                                                         |
+| `image`                   | Base64 string. Selfie                                                                                                                                            |
+| `document_image`          | Base64 string. Document front cropped                                                                                                                            |
+| `document_image_complete` | Base64 string. Document front uncropped                                                                                                                          |
+| `document_back`           | Base64 string. Document back cropped                                                                                                                             |
+| `document_back_complete`  | Base64 string. Document back uncropped                                                                                                                           |
 
 \*Given the way browsers works, there is a small chance the user location won't
 be available if the user completes the process using a mobile device.
@@ -526,10 +526,10 @@ const handleData = (response) => {
     "Response - document_image_complete",
     response.document_image_complete
   );
-  console.log("Response - document_image_back", response.document_image_back);
+  console.log("Response - document_back", response.document_back);
   console.log(
-    "Response - document_image_back_complete",
-    response.document_image_back_complete
+    "Response - document_back_complete",
+    response.document_back_complete
   );
 };
 
