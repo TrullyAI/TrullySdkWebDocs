@@ -10,56 +10,57 @@ follow the steps in the [<b>Add it to Next.js</b>](#add-it-next) section
 
 ## Table of Contents
 
-1. [Install](#install)
-   1. [Add styles](#add-styles)
-2. [How to use](#how-to-use)
-3. [Tracking process](#tracking-process)
-4. [Combine with other Decision Maker analysis](#combine-with-other-decision-maker-analysis)
-5. [Callbacks data structure](#callbacks-data-structure)
-   1. [handleTrack](#handletrack)
-   2. [handleTrackDetail](#handletrackdetail)
-   3. [handleData](#handledata)
-   4. [handleError](#handleerror)
-6. [Personalize](#personalize)
-   1. [pagesToInclude key](#pagestoinclude-key)
-   2. [inputs key](#inputs-key)
-7. [Add it to Next.js](#add-it-next)
-   1. [Next.js App Router System](#nextjs-app-router-system)
-      1. [Add styles](#add-styles-1)
-      2. [Creating a client-side component](#creating-a-client-side-component)
-      3. [Dynamically import the component](#dynamically-import-the-component)
-   2. [Next.js Page Router System](#nextjs-page-router-system)
-      1. [Add styles](#add-styles-2)
-      2. [Creating a component](#creating-a-component)
-      3. [Dynamically import the component](#dynamically-import-the-component-1)
-8. [Data handling](#data-handling)
-   1. [handleData](#handledata-1)
-   2. [Receiving data with webhook](#receiving-data-with-webhook)
-9. [handleError](#handleerror-1)
-10. [Full Example](#full-example)
-11. [Known issues](#known-issues)
+- [Install](#install)
+  - [Add styles](#add-styles)
+- [How to use](#how-to-use)
+- [Tracking process](#tracking-process)
+- [Combine with other Decision Maker analysis](#combine-with-other-decision-maker-analysis)
+- [Callbacks data structure](#callbacks-data-structure)
+  - [handleTrack](#handletrack)
+    - [Receiving track with webhook](#receiving-track-with-webhook)
+  - [handleTrackDetail](#handletrackdetail)
+  - [handleData](#handledata)
+  - [handleError](#handleerror)
+- [Personalize](#personalize)
+  - [pagesToInclude key](#pagestoinclude-key)
+  - [inputs key](#inputs-key)
+- [Add it to Next.js](#add-it-next)
+  - [Next.js App Router System](#nextjs-app-router-system)
+    - [Add styles](#add-styles-1)
+    - [Creating a client-side component](#creating-a-client-side-component)
+    - [Dynamically import the component](#dynamically-import-the-component)
+  - [Next.js Page Router System](#nextjs-page-router-system)
+    - [Add styles](#add-styles-2)
+    - [Creating a component](#creating-a-component)
+    - [Dynamically import the component](#dynamically-import-the-component-1)
+- [Data handling](#data-handling)
+  - [handleData](#handledata-1)
+  - [Receiving data with webhook](#receiving-data-with-webhook)
+- [handleError](#handleerror-1)
+- [Full Example](#full-example)
+- [Known issues](#known-issues)
 
 #### ⚠️ Before start using the TrullySdkWeb component we need to set some data on our server. <br> Please contact us to ask for this set up.
 
 We are going to need the following information:
 
-|                     | Description                                                                                                                                                | Example                                                                                      |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `logo`              | The url of your company logo to replace our                                                                                                                | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/logo-trully-unico.svg |
-| `Button color`      | Hexadecimal color code for the button background                                                                                                           | #475FFF                                                                                      |
-| `Button color text` | Hexadecimal color code for the button text                                                                                                                 | #FFFFFF                                                                                      |
-| `Domains`           | Every domain url in which you are going to use the TrullySdkWeb component. Make sure to let us know which are for production and which are for development | https://localhost:5374 - dev                                                                 |
-|                     |                                                                                                                                                            | https://dominio.com - prod                                                                   |
+|                     | Description                                                                                                                                                | Example                                                                         |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `logo`              | The url of your company logo to replace our                                                                                                                | https://trully-api-documentation.s3.us-east-1.amazonaws.com/trully-sdk/web.webp |
+| `Button color`      | Hexadecimal color code for the button background                                                                                                           | #475FFF                                                                         |
+| `Button color text` | Hexadecimal color code for the button text                                                                                                                 | #FFFFFF                                                                         |
+| `Domains`           | Every domain url in which you are going to use the TrullySdkWeb component. Make sure to let us know which are for production and which are for development | https://localhost:5374 - dev                                                    |
+|                     |                                                                                                                                                            | https://dominio.com - prod                                                      |
 
 ##### ⚠️ logo, button color and button color text are the only styles that can be replace
 
-## Install
+## <a id="install"></a>Install
 
 ```jsx
 npm i @trully/trully-sdk-react
 ```
 
-### Add styles
+### <a id="add-styles"></a>Add styles
 
 To import the styles, go to your main.js file and add the following import
 
@@ -109,7 +110,7 @@ import { TrullySdkWeb } from "@trully/trully-sdk-react";
 />;
 ```
 
-## Combine with other Decision Maker analysis
+## <a id="combine-with-other-decision-maker-analysis"></a>Combine with other Decision Maker analysis
 
 TrullySdkWeb helps you to get a candidate data (by default you'll be collecting
 document image, location and selfie) so our Decision Maker can analyze it. But
@@ -145,11 +146,11 @@ import { TrullySdkWeb } from "@trully/trully-sdk-react";
 />;
 ```
 
-### Callbacks data structure
+## <a id="callbacks-data-structure"></a>Callbacks data structure
 
 Here you'll found the structures of the data received in each callback function
 
-#### handleTrack
+#### <a id="handletrack"></a>handleTrack
 
 This function will be called every time the user starts a new step on the
 process. There are five different steps. When a new step is started, you'll
@@ -162,7 +163,7 @@ receive the data from the previous completed step.
 | `started_on`   | UTC timezone. Step starting time.    |
 | `completed_on` | UTC timezone. Step completion time.  |
 
-#### Steps Table
+##### Steps Table
 
 | Name                  | Description                                       |
 | --------------------- | ------------------------------------------------- |
@@ -172,7 +173,7 @@ receive the data from the previous completed step.
 | `form_selfie`         | User reach the final step of the operation.       |
 | `form_decision_maker` | Operation has the Decision Maker respond.         |
 
-##### Example
+###### Example
 
 ```jsx
 import { TrullySdkWeb } from "@trully/trully-sdk-react";
@@ -187,7 +188,37 @@ import { TrullySdkWeb } from "@trully/trully-sdk-react";
 />;
 ```
 
-#### handleTrackDetail
+###### ⚠️ Tracking process is a silent operation which means there is no UI to represent it. This process will succeed or fail without any interaction with the user
+
+##### <a id="receiving-track-with-webhook"></a>Receiving track with webhook
+
+If you prefer it is possible to set a webhook url to receive the track data. To
+do it, just pass the key track_webhook to the configuration object
+
+###### Example
+
+```jsx
+import { TrullySdkWeb } from "@trully/trully-react-components-npm";
+
+<TrullySdkWeb
+  configuration={{
+    isDev: true, // Change it to false in production
+    apiKey: "YOUR_API_KEY", // Remember to use sandbox API key when isDev: true and prod API key when isDev: false
+    user_id: "YOUR_USER_ID",
+    handleData: (response) => {
+      // What should be done with the obtained response?
+    },
+    handleError: (error) => {
+      //What should be done if there is an error retrieving the response?
+    },
+    track_webhook: "VALID_WEBHOOK_URL",
+  }}
+/>;
+```
+
+###### ⚠️ The component will wait for one minute for your webhook server to respond. After that, it will drop the communication. Process won't be affected in any way by webhook communication
+
+#### <a id="handletrackdetail"></a>handleTrackDetail
 
 This function will be called when the user take some actions during the
 operation. The actions that will trigger it are the ones related to the data
@@ -199,7 +230,7 @@ needed for the Decision Maker.
 | `action`    | Name of the action that trigger the function. |
 | `timestamp` | UTC timezone. When the function was trigger.  |
 
-#### Actions Table
+##### Actions Table
 
 | Name                                     | Description                                            |
 | ---------------------------------------- | ------------------------------------------------------ |
@@ -211,7 +242,7 @@ needed for the Decision Maker.
 | `LIVENESS_RECOGNITION_PROCESS_COMPLETED` | Operation has analyzed liveness status.                |
 | `END_KYC_PROCESS`                        | Operation has Decision Maker result.                   |
 
-#### Example
+##### Example
 
 ```jsx
 import { TrullySdkWeb } from "@trully/trully-sdk-react";
@@ -226,12 +257,12 @@ import { TrullySdkWeb } from "@trully/trully-sdk-react";
 />;
 ```
 
-### handleData
+#### <a id="handledata"></a>handleData
 
 This function will be called when the operation gets the Decision Maker result.
 Go to [<b>Data handling</b>](#results) section to get more information
 
-### handleError
+#### <a id="handleerror"></a>handleError
 
 This function will be called in case of an error during the operation. You'll
 receive the error object as is generated
@@ -244,7 +275,7 @@ We recommend you save this error into a log file.
 | `user_id`   | The user_id you passed during initialization. |
 | `timestamp` | UTC timezone. When the function was trigger.  |
 
-#### Example
+##### Example
 
 ```jsx
 import { TrullySdkWeb } from "@trully/trully-sdk-react";
@@ -268,7 +299,7 @@ const handleError = (error) => {
 />;
 ```
 
-## Personalize
+## <a id="personalize"></a>Personalize
 
 To customize the component, add the corresponding keys to the configuration
 prop. Every one of these keys are optional
@@ -299,7 +330,7 @@ import { TrullySdkWeb } from "@trully/trully-sdk-react";
 />;
 ```
 
-### pagesToInclude key
+### <a id="pagestoinclude-key"></a>pagesToInclude key
 
 With these key you'll be able to adapt the process to take some extra data from
 your user by adding pages to the process. To add the pages you should pass an
@@ -311,7 +342,7 @@ include.
 | `form`          | This will add a form to your process. The data collect with it can be select using the inputs key             |
 | `personal_info` | This will add a form asking for personal info such as complete name, date of birth, place of birth and gender |
 
-##### inputs key
+#### <a id="inputs-key"></a>inputs key
 
 If you include <b>form</b> page, inputs will let you choose which data will be
 asked for. There are no inputs shown by default.
@@ -324,7 +355,7 @@ asked for. There are no inputs shown by default.
 | `rfc`          | Input asking for valid rfc                                                                                                    |
 | `address`      | Input asking for valid address                                                                                                |
 
-#### Example
+##### Example
 
 ```jsx
 import { TrullySdkWeb } from "@trully/trully-sdk-react";
@@ -341,9 +372,9 @@ import { TrullySdkWeb } from "@trully/trully-sdk-react";
 
 ## <a id="add-it-next"></a>Add it to Next.js
 
-### Next.js App Router System
+### <a id="nextjs-app-router-system"></a>Next.js App Router System
 
-#### Add styles
+#### <a id="add-styles-1"></a>Add styles
 
 To import the styles, go to your app level layout.js file (RootLayout Component)
 
@@ -357,7 +388,7 @@ TrullySdkWeb is a client-side component, which means it needs to run on the
 client. By default, every component created in Next.js is executed on the
 server. You need to make sure our component runs only on the client.
 
-#### Creating a client-side component
+#### <a id="creating-a-client-side-component"></a>Creating a client-side component
 
 To ensure a component runs on the client, it should be marked as a client-side
 component using the "use client" tag. In the Next.js project, create a new
@@ -391,7 +422,7 @@ const Trully = () => {
 export default Trully;
 ```
 
-#### Dynamically import the component
+#### <a id="dynamically-import-the-component"></a>Dynamically import the component
 
 Then, to ensure the component runs only on the client, make a dynamic import
 with ssr: false.
@@ -410,9 +441,9 @@ export default function Home() {
 }
 ```
 
-### Next.js Page Router System
+### <a id="nextks-page-router-system"></a>Next.js Page Router System
 
-#### Add styles
+#### <a id="add-styles-2"></a>Add styles
 
 To import the styles, go to your \_app.js file and add the following import
 
@@ -420,7 +451,7 @@ To import the styles, go to your \_app.js file and add the following import
 import "../node_modules/@trully/trully-react-components-npm/dist/index.css";
 ```
 
-#### Creating a component
+#### <a id="creating-a-component"></a>Creating a component
 
 First, create a new component so you can configure TrullySdkWeb component
 
@@ -450,7 +481,7 @@ const Trully = () => {
 export default Trully;
 ```
 
-#### Dynamically import the component
+#### <a id="dynamically-import-the-component-1"></a>Dynamically import the component
 
 Then, to ensure the component runs only on the client, make a dynamic import
 with ssr: false.
@@ -469,7 +500,7 @@ export default function Home() {
 }
 ```
 
-## Data handling
+## <a id="data-handling"></a>Data handling
 
 TrullyWebSDK sends the obtained data to the
 [API Decision Maker](https://docs.trully.ai/docs/about) to assist in your
@@ -483,7 +514,7 @@ obtained during the KYC process in its parameter. On the other hand, the
 can specify the actions to be taken when the server request is successful
 (handleData) or if there is an error in the process (handleError).
 
-### handleData
+### <a id="handledata-1"></a>handleData
 
 | Key                       | Description                                                                                                                                                      |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -506,12 +537,12 @@ can specify the actions to be taken when the server request is successful
 \*Given the way browsers works, there is a small chance the user location won't
 be available if the user completes the process using a mobile device.
 
-#### Receiving data with webhook
+#### <a id="receiving-data-with-webhook"></a>Receiving data with webhook
 
 If you prefer it is possible to set a webhook url to receive the Decision Maker
 response. To do it, just pass the key webhook to the configuration object
 
-#### Example
+##### Example
 
 ```jsx
 import { TrullySdkWeb } from "@trully/trully-react-components-npm";
@@ -549,7 +580,9 @@ const handleData = (response) => {
 />;
 ```
 
-## Full Example
+###### ⚠️ The component will wait for one minute for your webhook server to respond. After that, it will drop the communication. Process won't be affected in any way by webhook communication
+
+## <a id="full-example"></a>Full Example
 
 Here you'll found an example to show you how to change every configuration
 available. You can also see the
@@ -597,7 +630,7 @@ const handleError = (error) => {
 />;
 ```
 
-## Known issues
+## <a id="kwon-issues"></a>Known issues
 
 This section provides workarounds for some known issues that may occur while
 using the component.
